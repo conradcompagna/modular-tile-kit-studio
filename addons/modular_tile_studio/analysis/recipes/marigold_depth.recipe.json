@@ -1,0 +1,19 @@
+{
+  "name": "Marigold Depth",
+  "description": "Diffusion-estimated monocular depth (prs-eth/marigold-depth-v1-1). An alternative geometry source to MoGe: written to the raw 'depth' channel, then normalized into this asset's 0..1 height map by the derived-map pipeline. Its physical range is set at render time by the board-wide CHORD height range and this material's Height strength.",
+  "workflow": "marigold_depth_api.json",
+  "relief_source": "marigold",
+  "models": ["prs-eth/marigold-depth-v1-1"],
+  "image_input_nodes": ["1"],
+  "outputs": {
+    "10": "depth"
+  },
+  "parameters": {
+    "3": {
+      "denoise_steps": 4,
+      "ensemble_size": 3,
+      "processing_resolution": 768,
+      "scheduler": "LCMScheduler"
+    }
+  }
+}

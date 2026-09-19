@@ -1,0 +1,76 @@
+{
+  "1": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "input.png"
+    }
+  },
+  "2": {
+    "class_type": "MarigoldModelLoader",
+    "inputs": {
+      "model": "prs-eth/marigold-iid-appearance-v1-1"
+    }
+  },
+  "3": {
+    "class_type": "MarigoldDepthEstimation_v2",
+    "inputs": {
+      "marigold_model": [
+        "2",
+        0
+      ],
+      "image": [
+        "1",
+        0
+      ],
+      "seed": 123,
+      "denoise_steps": 4,
+      "ensemble_size": 3,
+      "processing_resolution": 768,
+      "scheduler": "LCMScheduler",
+      "use_taesd_vae": false,
+      "keep_model_loaded": false
+    }
+  },
+  "4": {
+    "class_type": "ImageFromBatch",
+    "inputs": {
+      "image": [
+        "3",
+        0
+      ],
+      "batch_index": 0,
+      "length": 1
+    }
+  },
+  "5": {
+    "class_type": "ImageFromBatch",
+    "inputs": {
+      "image": [
+        "3",
+        0
+      ],
+      "batch_index": 1,
+      "length": 1
+    }
+  },
+  "10": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "4",
+        0
+      ],
+      "filename_prefix": "mts/marigold_albedo"
+    }
+  },
+  "11": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "5",
+        0
+      ],
+      "filename_prefix": "mts/marigold_material"
+    }
+  }
+}

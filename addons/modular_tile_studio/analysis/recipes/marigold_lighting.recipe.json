@@ -1,0 +1,25 @@
+{
+  "name": "Marigold Intrinsic Lighting (Delight)",
+  "description": "Splits the source image into albedo, diffuse shading and a non-diffuse residual. Albedo is the relightable surface colour; shading and residual are preserved as diagnostic maps for inspection, not misfiled as AO or emission.",
+  "workflow": "marigold_lighting_api.json",
+  "models": [
+    "prs-eth/marigold-iid-lighting-v1-1"
+  ],
+  "image_input_nodes": [
+    "1"
+  ],
+  "outputs": {
+    "10": "albedo",
+    "11": "diffuse_shading",
+    "12": "lighting_residual"
+  },
+  "notes": "IID lighting returns albedo / diffuse shading / non-diffuse residual concatenated on the BATCH dimension. Only albedo is a direct runtime material input. Diffuse shading is illumination, not ambient occlusion; residual contains mixed non-diffuse lighting such as specular highlights and direct light sources, not literal emission. Both diagnostic maps are stored and previewable so the decomposition remains auditable.",
+  "parameters": {
+    "3": {
+      "denoise_steps": 4,
+      "ensemble_size": 3,
+      "processing_resolution": 768,
+      "scheduler": "LCMScheduler"
+    }
+  }
+}

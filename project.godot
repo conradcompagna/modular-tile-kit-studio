@@ -1,0 +1,77 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Modular Tile Kit Studio"
+config/description="Authoring environment for modular isometric tile kits on a 1 m cubic lattice."
+config/features=PackedStringArray("4.6", "Forward Plus")
+config/icon="res://icon.svg"
+
+
+[display]
+
+window/size/viewport_width=1600
+window/size/viewport_height=900
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/modular_tile_studio/plugin.cfg")
+
+[modular_tile_studio]
+
+analysis/autostart_server=false
+
+[rendering]
+
+textures/default_filters/anisotropic_filtering_level=4
+
+[shader_globals]
+
+mts_parallax_master={
+"type": "float",
+"value": 1.0
+}
+mts_height_metres_per_source_pixel={
+"type": "float",
+"value": 0.0001
+}
+mts_stochastic_scale={
+"type": "float",
+"value": 1.0
+}
+mts_stochastic_blend_sharpness={
+"type": "float",
+"value": 1.5
+}
+mts_stochastic_seed={
+"type": "float",
+"value": 0.0
+}
+mts_interaction_enabled={
+"type": "bool",
+"value": true
+}
+mts_contact_grime={
+"type": "float",
+"value": 0.65
+}
+mts_contact_grime_darkening={
+"type": "float",
+"value": 0.28
+}
+mts_contact_grime_fade={
+"type": "float",
+"value": 1.0
+}
+mts_contact_grime_noise={
+"type": "float",
+"value": 0.45
+}

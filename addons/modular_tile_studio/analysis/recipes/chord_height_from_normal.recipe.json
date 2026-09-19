@@ -1,0 +1,12 @@
+{
+  "name": "CHORD Height (from Normal)",
+  "description": "Poisson-integrates this asset's EXISTING normal map into a height map (Ubisoft LaForge CHORD, ChordNormalToHeight). Pure relief read off surface slope, not scene/camera geometry, so it has no notion of a physically-scaled Z extent the way MoGe does. Requires a normal map to already be on this asset -- run MoGe Geometry or a Marigold normals recipe first. Already 0..1 normalized by the solver, so it is written straight to the 'height' channel with no further rescale.",
+  "workflow": "chord_height_from_normal_api.json",
+  "relief_source": "chord",
+  "models": [],
+  "input_channel": "normal",
+  "image_input_nodes": ["1"],
+  "outputs": {
+    "10": "height"
+  }
+}

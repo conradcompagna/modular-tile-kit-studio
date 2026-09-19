@@ -1,0 +1,25 @@
+{
+  "name": "MoGe Geometry",
+  "description": "Monocular geometry from a single tile image. Returns a height map normalized against this asset's own measured Z extent (not a raw disparity preview), camera-space normals, and MoGe's validity mask, plus the point cloud's metric X/Y/Z extent in metres via the metrics_node output. The validity mask constrains derived geometry maps and is never used as visible alpha.",
+  "workflow": "moge_geometry_api.json",
+  "relief_source": "moge",
+  "models": [
+    "moge-2-vitl-normal.pt"
+  ],
+  "image_input_nodes": [
+    "1"
+  ],
+  "outputs": {
+    "10": "height",
+    "11": "normal",
+    "12": "geometry_mask"
+  },
+  "metrics_node": "4",
+  "parameters": {
+    "3": {
+      "resolution_level": 9,
+      "force_projection": true,
+      "apply_mask": false
+    }
+  }
+}

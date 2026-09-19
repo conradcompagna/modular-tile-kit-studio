@@ -1,0 +1,13 @@
+{
+  "name": "CHORD Material Estimation",
+  "description": "Full SVBRDF estimation from a single texture photo (Ubisoft LaForge CHORD): basecolor, normal, roughness and metalness in one diffusion pass. Independent of the CHORD Height recipe -- this node never touches height, and CHORD Height never touches these four maps. Requires chord_v1.safetensors in ComfyUI/models/checkpoints (gated download, license must be accepted on the Ubisoft Hugging Face repo first).",
+  "workflow": "chord_material_api.json",
+  "models": ["chord_v1.safetensors"],
+  "image_input_nodes": ["1"],
+  "outputs": {
+    "10": "albedo",
+    "11": "normal",
+    "12": "roughness",
+    "13": "metallic"
+  }
+}

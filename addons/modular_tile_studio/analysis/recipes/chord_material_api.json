@@ -1,0 +1,67 @@
+{
+  "1": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "input.png"
+    }
+  },
+  "2": {
+    "class_type": "ChordLoadModel",
+    "inputs": {
+      "ckpt_name": "chord_v1.safetensors"
+    }
+  },
+  "3": {
+    "class_type": "ChordMaterialEstimation",
+    "inputs": {
+      "chord_model": [
+        "2",
+        0
+      ],
+      "image": [
+        "1",
+        0
+      ]
+    }
+  },
+  "10": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "3",
+        0
+      ],
+      "filename_prefix": "mts/chord_basecolor"
+    }
+  },
+  "11": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "3",
+        1
+      ],
+      "filename_prefix": "mts/chord_normal"
+    }
+  },
+  "12": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "3",
+        2
+      ],
+      "filename_prefix": "mts/chord_roughness"
+    }
+  },
+  "13": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "3",
+        3
+      ],
+      "filename_prefix": "mts/chord_metalness"
+    }
+  }
+}

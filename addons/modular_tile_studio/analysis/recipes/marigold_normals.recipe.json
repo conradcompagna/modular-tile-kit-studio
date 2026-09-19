@@ -1,0 +1,18 @@
+{
+  "name": "Marigold Normals",
+  "description": "Diffusion-estimated surface normals. Complements MoGe: Marigold often reads fine material relief (mortar lines, carving, fabric weave) that monocular geometry smooths over.",
+  "workflow": "marigold_normals_api.json",
+  "models": ["prs-eth/marigold-normals-v1-1"],
+  "image_input_nodes": ["1"],
+  "outputs": {
+    "10": "normal"
+  },
+  "parameters": {
+    "3": {
+      "denoise_steps": 4,
+      "ensemble_size": 3,
+      "processing_resolution": 768,
+      "scheduler": "LCMScheduler"
+    }
+  }
+}

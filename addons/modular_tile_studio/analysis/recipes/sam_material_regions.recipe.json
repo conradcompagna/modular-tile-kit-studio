@@ -1,0 +1,18 @@
+{
+  "name": "SAM Material Regions",
+  "description": "Text-prompted segmentation of a tile into material regions (stone, mortar, moss, sand, timber...). The mask becomes a material_id channel, which is what later lets per-material roughness/metallic presets be applied instead of one average material across the whole tile.",
+  "workflow": "sam_material_regions_api.json",
+  "requires_setup": true,
+  "setup_notes": "SAM3 ships with ComfyUI as the built-in SAM3_Detect node, but no SAM3 weights are installed in this ComfyUI yet, and SAM3_Detect needs both a MODEL and CLIP text conditioning. Install a SAM3 checkpoint, then point node 2 at it and edit the prompt on node 4. Until then this recipe is listed but will not run -- every other recipe works without it.",
+  "image_input_nodes": ["1"],
+  "outputs": {
+    "10": "material_id"
+  },
+  "parameters": {
+    "5": {
+      "threshold": 0.5,
+      "refine_iterations": 2,
+      "individual_masks": false
+    }
+  }
+}

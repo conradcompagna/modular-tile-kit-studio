@@ -1,0 +1,26 @@
+{
+  "name": "Marigold Intrinsic Appearance",
+  "description": "Intrinsic image decomposition: separates surface colour from baked lighting and estimates material response. Gives Godot freedom to relight AI-painted art instead of being stuck with the illumination baked into the source.",
+  "workflow": "marigold_appearance_api.json",
+  "models": ["prs-eth/marigold-iid-appearance-v1-1"],
+  "image_input_nodes": ["1"],
+  "outputs": {
+    "10": "albedo",
+    "11": "material"
+  },
+  "unpack": {
+    "11": {
+      "r": "roughness",
+      "g": "metallic"
+    }
+  },
+  "notes": "The IID node returns its maps concatenated on the BATCH dimension, not as separate outputs: index 0 = albedo (sRGB), index 1 = a packed material image with R=roughness and G=metallicity. The workflow splits the batch with ImageFromBatch, and the 'unpack' block above splits the packed material image into two real single-channel maps. Registering node 11 directly as 'roughness' kept the red channel and silently discarded the metallicity the model had already computed.",
+  "parameters": {
+    "3": {
+      "denoise_steps": 4,
+      "ensemble_size": 3,
+      "processing_resolution": 768,
+      "scheduler": "LCMScheduler"
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "1": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "input.png"
+    }
+  },
+  "2": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "REPLACE_WITH_SAM3_CHECKPOINT.safetensors"
+    }
+  },
+  "4": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "clip": [
+        "2",
+        1
+      ],
+      "text": "stone blocks, mortar joints, moss, sand"
+    }
+  },
+  "5": {
+    "class_type": "SAM3_Detect",
+    "inputs": {
+      "model": [
+        "2",
+        0
+      ],
+      "image": [
+        "1",
+        0
+      ],
+      "conditioning": [
+        "4",
+        0
+      ],
+      "threshold": 0.5,
+      "refine_iterations": 2,
+      "individual_masks": false
+    }
+  },
+  "6": {
+    "class_type": "MaskToImage",
+    "inputs": {
+      "mask": [
+        "5",
+        0
+      ]
+    }
+  },
+  "10": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "6",
+        0
+      ],
+      "filename_prefix": "mts/sam_material_regions"
+    }
+  }
+}
