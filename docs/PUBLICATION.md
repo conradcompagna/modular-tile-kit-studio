@@ -1,18 +1,13 @@
-# Publication contents
+# Repository contents
 
 ## Included
 
-Native editor add-on, resource model source, shaders, workflows, editor tests and utilities, and companion Blender integration.
+Godot editor plugin, shaders, resource models, workflow definitions, generic source utilities, focused tests, and companion Blender integration.
 
-## Kept outside this repository
+## External resources
 
-The unfinished game, game launch scene and game-dependent utilities, authored game boards, source art packs and GLBs, generated images/maps, model weights, and editor caches.
+The unfinished game, authored game boards, source-art libraries, source GLBs, generated maps and caches, and model weights.
 
-All projects also exclude live environment files, credentials, private keys,
-logs, local environments, dependency installations, backup copies, and original
-Git history. Configuration examples contain empty credentials or explicit local
-example values. Upstream component notices are preserved.
+Live environment files, credentials, private keys, logs, installed dependencies, local environments, backup copies, and generated outputs are excluded. Configuration examples require your own settings. Third-party notices are preserved in [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md).
 
-This is a fresh source snapshot. Publication adjustments remove operational
-defaults and describe external resources; they do not change the deployed sites.
-See [setup](SETUP.md) for requirements and validation limits.
+The GitHub code is maintained separately from the deployed sites and original development workspaces. See [setup](SETUP.md) for inputs, build steps, and validation limits.

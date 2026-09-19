@@ -1,13 +1,13 @@
 extends SceneTree
 
 const K := preload("res://addons/modular_tile_studio/utils/mts_constants.gd")
-const TileAssetScript := preload("res://addons/modular_tile_studio/data/tile_asset.gd")
-const AssetLibraryScript := preload("res://addons/modular_tile_studio/data/asset_library.gd")
-const BoardDocumentScript := preload("res://addons/modular_tile_studio/data/board_document.gd")
-const PropPlacementScript := preload("res://addons/modular_tile_studio/data/prop_placement.gd")
-const PlacementControllerScript := preload("res://addons/modular_tile_studio/viewport/placement_controller.gd")
-const TerrainSculptorScript := preload("res://addons/modular_tile_studio/generation/terrain_sculptor.gd")
-const AssetInspectorPanelScript := preload("res://addons/modular_tile_studio/ui/asset_inspector_panel.gd")
+var TileAssetScript: Script = load("res://addons/modular_tile_studio/data/tile_asset.gd")
+var AssetLibraryScript: Script = load("res://addons/modular_tile_studio/data/asset_library.gd")
+var BoardDocumentScript: Script = load("res://addons/modular_tile_studio/data/board_document.gd")
+var PropPlacementScript: Script = load("res://addons/modular_tile_studio/data/prop_placement.gd")
+var PlacementControllerScript: Script = load("res://addons/modular_tile_studio/viewport/placement_controller.gd")
+var TerrainSculptorScript: Script = load("res://addons/modular_tile_studio/generation/terrain_sculptor.gd")
+var AssetInspectorPanelScript: Script = load("res://addons/modular_tile_studio/ui/asset_inspector_panel.gd")
 
 var failures: int = 0
 
@@ -101,7 +101,7 @@ func _run() -> void:
 		wall_terrain.seam_carries_side_face(Vector2i.ZERO, TerrainMesh.EDGE_EAST),
 		"the fixture should begin with one real wall on the footprint's east seam"
 	)
-	var sculptor := TerrainSculptorScript.new(wall_terrain)
+	var sculptor: TerrainSculptor = TerrainSculptorScript.new(wall_terrain)
 	sculptor.begin_stroke()
 	sculptor.flatten_cells([Vector2i.ZERO], 1.0)
 	sculptor.finish_stroke()
@@ -269,7 +269,7 @@ func _run() -> void:
 			PackedFloat32Array([1.5, 1.5, 1.5, 0.9])
 		)
 		plateau.rebuild_side_faces_for_cell(Vector2i.ONE)
-		var plateau_sculptor := TerrainSculptorScript.new(plateau)
+		var plateau_sculptor: TerrainSculptor = TerrainSculptorScript.new(plateau)
 		plateau_sculptor.begin_stroke()
 		# 1.35 m is the mean of those four corners, which is the height
 		# prop_terrain_support_height would stand the GLB at.
@@ -293,7 +293,7 @@ func _run() -> void:
 	var ramp := _filled_terrain(Vector2i.ZERO, Vector2i(2, 1))
 	ramp.set_lattice_corner_height(Vector2i(1, 0), 1.0)
 	ramp.set_lattice_corner_height(Vector2i(1, 1), 1.0)
-	var ramp_sculptor := TerrainSculptorScript.new(ramp)
+	var ramp_sculptor: TerrainSculptor = TerrainSculptorScript.new(ramp)
 	ramp_sculptor.begin_stroke()
 	ramp_sculptor.flatten_cells_smooth([Vector2i.ZERO], 0.5)
 	ramp_sculptor.finish_stroke()

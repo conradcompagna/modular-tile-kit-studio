@@ -1,33 +1,24 @@
-# Setup and verification
+# Setup
 
-Use Godot 4.6.2 with the Forward+ renderer. Import `project.godot`, allow script registration to finish, and select the Tile Studio tab. No additional editor tooling add-on is required by this published project.
+Use Godot 4.6.2 with the Forward+ renderer. Import `project.godot`, allow script registration to finish, and select the Tile Studio tab. The project is an editor workspace and has no game launch scene.
 
-For optional ComfyUI analysis, run your own ComfyUI service and configure the existing analysis settings. Workflow JSON and the custom-node source are under `addons/modular_tile_studio/analysis/`; model weights and the ComfyUI installation are external.
+## Assets
 
-## Checks
-
-From the repository root:
+Import your own images and GLB assets through the editor. To generate a small set of procedural surface tiles locally:
 
 ```sh
 godot --headless --path . --import
+godot --headless --path . --script res://tools/make_demo_assets.gd
 ```
 
-Additional focused checks cover materials, terrain, placement, textures, and viewport behavior. Some require a rendering-capable process or named source assets. See each test's setup before running it.
+The generated images live in the ignored `tile_library/` directory. The original art library and authored boards are not included.
 
-The `tools/make_demo_assets.gd` script generates small procedural tiles locally. Its generated images belong in the ignored `tile_library/` directory, not in source control.
+## Optional integrations
 
-## Published boundary
+For ComfyUI analysis, run your own ComfyUI service and configure the analysis settings explicitly. Workflow JSON and custom-node source are under `addons/modular_tile_studio/analysis/`; the service installation and model weights are external. Server autostart is disabled in this distribution.
 
-The editor's add-on, shaders, resource models, workflow definitions, tests, and source utilities are included. The game directory, its launch scene and tests, the development-tool runtime autoload, large art packs, source GLBs, authored game boards, and generated render caches are excluded.
+The companion Blender add-on lives in `integrations/blender/` and has its own `blender_manifest.toml`. It is not required to open the Godot editor.
 
-The companion Blender add-on is preserved in `integrations/blender/`. It has its own `blender_manifest.toml`; it is not needed to open the Godot editor.
+## Validation
 
-## Export validation
-
-The editor imports successfully in Godot 4.6.2. The focused terrain heightfield
-regression (`tests/terrain_heightfield_check.gd`) passes with zero failures.
-The historical aggregate runner,
-`tests/run_tests.gd`, currently fails to parse against the current editor API
-(including an unavailable `BlockoutCompiler` and a changed `add_light` signature).
-It remains in the source publication as historical test infrastructure; it is not
-a passing release gate. Focused tests have separate entrypoints and requirements.
+See [tests](../tests/README.md) for the headless CI commands and the separate rendering checks. CI imports the editor, parses the focused scripts, and runs the terrain, grid, texture-adjustment, and prop-contact regressions. This does not replace an interactive review of the Forward+ viewport and imported art.

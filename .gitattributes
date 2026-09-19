@@ -1,0 +1,5 @@
+* text=auto
+*.gd text eol=lf
+*.gdshader text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
