@@ -21,15 +21,5 @@ jobs:
           unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
           chmod +x "$RUNNER_TEMP/godot/Godot_v4.6.2-stable_linux.x86_64"
           echo "$RUNNER_TEMP/godot" >> "$GITHUB_PATH"
-      - name: Import editor
-        run: Godot_v4.6.2-stable_linux.x86_64 --headless --path . --import
-      - name: Parse focused tests
-        run: |
-          for script in tests/*.gd; do
-            Godot_v4.6.2-stable_linux.x86_64 --headless --path . --check-only --script "res://$script"
-          done
-      - name: Run headless regressions
-        run: |
-          for script in terrain_heightfield_check test_grid_sizing texture_image_adjustment_check prop_contact_regression_check; do
-            Godot_v4.6.2-stable_linux.x86_64 --headless --path . --script "res://tests/$script.gd"
-          done
+      - name: Run isolated core and editor regressions
+        run: python3 tools/run_godot_checks.py --godot Godot_v4.6.2-stable_linux.x86_64

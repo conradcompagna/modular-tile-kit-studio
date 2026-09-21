@@ -4,7 +4,7 @@
 
 I built the studio to make detailed environments authorable through a constrained spatial vocabulary. Its grid, asset definitions, and board documents make the relationship between authored geometry and structured level data explicit.
 
-[Setup](docs/SETUP.md) · [Tests](tests/README.md) · [Portfolio](https://github.com/conradcompagna)
+[Setup](docs/SETUP.md) · [Architecture](docs/ARCHITECTURE.md) · [Tests](tests/README.md) · [Portfolio](https://github.com/conradcompagna)
 
 [![Checks](https://github.com/conradcompagna/modular-tile-kit-studio/actions/workflows/checks.yml/badge.svg)](https://github.com/conradcompagna/modular-tile-kit-studio/actions/workflows/checks.yml)
 
@@ -34,5 +34,7 @@ Import `project.godot` in **Godot 4.6.2**, allow the project to import, and sele
 | Companion Blender add-on | [integrations/blender/](integrations/blender/) |
 
 The editor data and rendering layers are separate from the UI. This repository includes the editor, shaders, tests, and preparation infrastructure. The unfinished game, authored game boards, large art libraries, and generated caches remain outside it.
+
+The public Godot classes delegate to named feature modules while retaining resource identities and undo callbacks; the main shader uses ordered includes. All maintained first-party files are limited to 2,000 lines by CI. The [architecture guide](docs/ARCHITECTURE.md) explains where state lives and how to follow each feature.
 
 See [test coverage](tests/README.md), [publication contents](docs/PUBLICATION.md), and [third-party notices](THIRD_PARTY_NOTICES.md).

@@ -1,16 +1,20 @@
 @tool
-extends SceneTree
+extends Node
 
 var _failed: int = 0
 
 
 ## Defer the editor-only UI and undo probe until the root viewport is initialized.
-func _init() -> void:
+func _ready() -> void:
 	_run.call_deferred()
 
 
 ## Exercise the compact three-step workflows against the editor's real global undo manager.
 func _run() -> void:
+	if not Engine.is_editor_hint():
+		push_error("Run this test through tools/run_godot_checks.py --suite editor.")
+		get_tree().quit(1)
+		return
 	var library := AssetLibrary.new()
 	var overlay := _surface_asset("OVERLAY")
 	var older := _surface_asset("OLDER")
@@ -32,20 +36,20 @@ func _run() -> void:
 	board.terrain = _filled_terrain(Vector2i(4, 4))
 	var viewport := MTSStudioViewport.new()
 	viewport.size = Vector2(800, 600)
-	get_root().add_child(viewport)
-	await process_frame
+	get_tree().root.add_child(viewport)
+	await get_tree().process_frame
 	var undo_manager := EditorInterface.get_editor_undo_redo()
 	viewport.bind(board, library, SurfaceMaterialFactory.new(), undo_manager)
 	var panel := MaterialPaintPanel.new()
-	get_root().add_child(panel)
-	await process_frame
+	get_tree().root.add_child(panel)
+	await get_tree().process_frame
 	panel.bind(board, library, viewport)
 
 	var toolbar_owner := TileStudioMain.new()
 	toolbar_owner.viewport = viewport
 	var toolbar := toolbar_owner._build_toolbar() as HBoxContainer
-	get_root().add_child(toolbar)
-	await process_frame
+	get_tree().root.add_child(toolbar)
+	await get_tree().process_frame
 	var fill_index := toolbar_owner._fill_button.get_index()
 	var path_index := toolbar_owner._fill_shape_option.get_index()
 	var grid_stroke_index := toolbar_owner._surface_grid_stroke_size_spin.get_index()
@@ -107,7 +111,7 @@ func _run() -> void:
 		"splatmap mode, setup, and the four painted channels are first-class Materials controls"
 	)
 	panel._open_splatmap_import()
-	await process_frame
+	await get_tree().process_frame
 	var splat_ok_button := panel._splatmap_dialog.get_ok_button()
 	_check(
 		panel._splatmap_dialog.visible
@@ -117,7 +121,7 @@ func _run() -> void:
 		"the scrollable RGBA setup keeps its confirmation button inside the visible dialog"
 	)
 	panel._open_splatmap_slot_picker(0)
-	await process_frame
+	await get_tree().process_frame
 	_check(
 		panel._splatmap_picker_gallery.icon_mode == ItemList.ICON_MODE_TOP
 		and panel._splatmap_picker_asset_ids[1] == newest.asset_id
@@ -268,10 +272,23 @@ func _run() -> void:
 		),
 		"texture repeat size changes independently of the top-bar brush radius"
 	)
+	# A brush layer receives shader uniforms only once a face actually uses it;
+	# unpainted faces deliberately compile the cheaper zero-layer variant.
+	_check(
+		not viewport.surface_material_paint.has_any_paint(),
+		"arming the brush creates no paint pixels and does not color the map"
+	)
+	var preview_uid := TerrainMesh.cell_top_uid(Vector2i.ZERO)
+	viewport.surface_material_paint.begin_stroke()
+	viewport.surface_material_paint.stamp_material_tile(preview_uid, paint_layer, 0.5, 0, false)
+	viewport.surface_material_paint.finish_stroke()
+	viewport.surface_material_paint.upload_dirty()
+	viewport._flush_material_palette_slot_changes()
+	viewport.refresh_material_blend_materials()
 	var live_batch := _top_terrain_batch(viewport)
 	_check(live_batch != null, "the material panel updates a canonical terrain batch")
 	if live_batch == null:
-		quit(1)
+		get_tree().quit(1)
 		return
 	var live_material_before := live_batch.material_override as ShaderMaterial
 	var live_repeat: Vector2 = live_material_before.get_shader_parameter(
@@ -317,10 +334,7 @@ func _run() -> void:
 		and live_batch.multimesh.mesh == preview_mesh_before,
 		"disabling preview leaves the same full-detail surface mesh in place"
 	)
-	_check(
-		not viewport.surface_material_paint.has_any_paint(),
-		"arming the brush creates no paint pixels and does not color the map"
-	)
+	viewport.clear_surface_material_paint()
 	viewport._draw_material_brush_preview({
 		"world_position": Vector3.ZERO,
 		"normal_world": Vector3.UP,
@@ -533,7 +547,7 @@ func _run() -> void:
 		true,
 		true
 	)
-	await process_frame
+	await get_tree().process_frame
 	var stamped_image := viewport.surface_material_paint.image_for_uid(top_uid)
 	var stamped_weight := stamped_image.get_pixel(
 		stamped_image.get_width() / 2,
@@ -574,8 +588,8 @@ func _run() -> void:
 	overlay.random_texture_rotation = true
 	overlay.random_texture_mirroring = true
 	var asset_inspector := AssetInspectorPanel.new()
-	get_root().add_child(asset_inspector)
-	await process_frame
+	get_tree().root.add_child(asset_inspector)
+	await get_tree().process_frame
 	# This is the same explicit edit pipeline connected by plugin.gd: invalidate
 	# the asset material cache, then refresh every base and painted use.
 	asset_inspector.asset_edited.connect(func(edited_asset: TileAsset, geometry_changed: bool) -> void:
@@ -641,12 +655,13 @@ func _run() -> void:
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(splat_path))
 
 	toolbar.queue_free()
+	history.clear_history()
 	toolbar_owner.free()
 	panel.queue_free()
 	viewport.queue_free()
-	await process_frame
+	await get_tree().process_frame
 	print("=== compact material UI failures: %d ===" % _failed)
-	quit(1 if _failed > 0 else 0)
+	_finish.call_deferred(1 if _failed else 0)
 
 
 ## Return whether every authored paint control and choice provides concise hover guidance.
@@ -773,3 +788,8 @@ func _check(condition: bool, label: String) -> void:
 	else:
 		_failed += 1
 		print("  FAIL  %s" % label)
+
+
+## Let fixture locals release their rendering resources before engine teardown.
+func _finish(code: int) -> void:
+	get_tree().quit(code)
