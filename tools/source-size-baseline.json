@@ -5,6 +5,5 @@
   "addons/modular_tile_studio/rendering/surface_material_paint.gd": 2446,
   "addons/modular_tile_studio/ui/material_paint_panel.gd": 3310,
   "addons/modular_tile_studio/viewport/placement_controller.gd": 4151,
-  "addons/modular_tile_studio/viewport/studio_viewport.gd": 8830,
-  "integrations/blender/__init__.py": 2807
+  "addons/modular_tile_studio/viewport/studio_viewport.gd": 8830
 }
