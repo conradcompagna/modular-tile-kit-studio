@@ -8,6 +8,10 @@ I built the studio to make detailed environments authorable through a constraine
 
 [![Checks](https://github.com/conradcompagna/modular-tile-kit-studio/actions/workflows/checks.yml/badge.svg)](https://github.com/conradcompagna/modular-tile-kit-studio/actions/workflows/checks.yml)
 
+![Eighteen surface shader variants rendered with the public fixture](docs/images/shader-variants.png)
+
+Public renderer fixture: opaque, cutout and blended surfaces with texture variation and different layer counts; see [validation limits](tests/README.md).
+
 ## Engineering highlights
 
 - **Native editor tooling:** a Godot main-screen plugin with placement tools, inspectors, terrain sculpting, lighting/material panels, and undo/redo.
@@ -38,3 +42,7 @@ The editor data and rendering layers are separate from the UI. This repository i
 The public Godot classes delegate to named feature modules while retaining resource identities and undo callbacks; the main shader uses ordered includes. All maintained first-party files are limited to 2,000 lines by CI. The [architecture guide](docs/ARCHITECTURE.md) explains where state lives and how to follow each feature.
 
 See [test coverage](tests/README.md), [publication contents](docs/PUBLICATION.md), and [third-party notices](THIRD_PARTY_NOTICES.md).
+
+## Development and validation
+
+[Development commands](docs/DEVELOPMENT.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md)

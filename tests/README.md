@@ -13,7 +13,7 @@ The runner copies the source into a disposable project, disables the normal serv
 |---|---|
 | `--suite core` | Heightfields, grid sizing, image processing, prop contact, sparse paint and sidecars, viewport brush integration, tile targets, golden board saves/reloads/backups, decals, PBR baking, seams, stamps, tint, skirts and expanded shader source |
 | `--suite editor` | Placement mutation/undo/redo and incremental identity; material panel, palette removal, resolution changes, splatmap import, UI resynchronization and live material updates |
-| `--suite render` | 18 actual Vulkan/Forward+ shader draws covering opaque/cutout/blend, texture variation on/off, and zero/one/four compiled layers |
+| `--suite render` | 18 Forward+ shader draws covering opaque/cutout/blend, texture variation on/off, and zero/one/four compiled layers; Vulkan by default, optional D3D12 on Windows |
 
 The editor suite loads fixtures through a test-only plugin inside the native editor lifecycle. Passing `--editor --script` to a custom `SceneTree` can leak editor resources or crash during shutdown on Windows; that is not the test entrypoint. No test plugin is enabled in the normal project.
 
@@ -24,6 +24,16 @@ python tools/run_godot_checks.py --godot /path/to/godot --suite render --render-
 ```
 
 This captures real rendered pixels, checks that every variant draws visible textured geometry, and rejects the dummy headless renderer. It is a shader smoke test, not an exhaustive visual correctness or performance benchmark. CI runs the core/editor suites; local GPU validation is reported separately.
+
+The September 2026 local check on Godot 4.6.2 / an RTX 5050 laptop produced all 18
+variants with zero pixel-check failures using Vulkan and D3D12, but the process
+did not finish cleanly after reporting the result (Vulkan exceeded 900 seconds;
+D3D12 was terminated after becoming unresponsive). The [captured image](../docs/images/shader-variants.png)
+is evidence of rendering only: **the complete GPU suite is not recorded as passed**.
+The source expansion is byte-identical to the original shader, and core/editor
+checks pass; the renderer shutdown issue still needs diagnosis on supported
+hardware before treating this as full interactive/rendering validation.
+Use `--rendering-driver d3d12` to select the Windows alternative explicitly.
 
 `fixtures/board_v13.json` was recorded from the original implementation at `824fa54`, using `fixtures/public_board.gd`; stable placement IDs make it deterministic. Update it only for a reviewed serialization change. The fixture covers paint and decal face ownership, enemy packs, terrain heights and movement state; it does not redistribute authored game boards.
 

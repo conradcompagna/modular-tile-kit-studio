@@ -27,6 +27,8 @@ def main() -> int:
     parser.add_argument("--suite", choices=("core", "editor", "render", "all"), default="all",
                         help="all runs core and editor; rendering is an explicit separate suite")
     parser.add_argument("--render-image", type=Path)
+    parser.add_argument("--rendering-driver", choices=("vulkan", "d3d12"), default="vulkan",
+                        help="GPU driver for the explicit render suite (D3D12 requires Windows)")
     args = parser.parse_args()
     executable = shutil.which(args.godot)
     if executable is None:
@@ -91,12 +93,12 @@ def main() -> int:
             for name in EDITOR:
                 run(name, ["--headless", "--editor", "--", f"--fixture={name}"])
         if args.suite == "render":
-            options = ["--disable-render-loop", "--rendering-driver", "vulkan", "--rendering-method", "forward_plus",
+            options = ["--disable-render-loop", "--rendering-driver", args.rendering_driver, "--rendering-method", "forward_plus",
                        "--audio-driver", "Dummy", "--position", "-10000,-10000",
                        "--script", "res://tests/shader_render_check.gd"]
             if args.render_image:
                 options.extend(["--", f"--image={args.render_image.resolve()}"])
-            run("18 surface shader variants on Vulkan", options, timeout=900)
+            run(f"18 surface shader variants on {args.rendering_driver}", options, timeout=900)
     return 0
 
 
