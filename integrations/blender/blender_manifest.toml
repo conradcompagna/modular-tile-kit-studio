@@ -4,7 +4,7 @@ id = "grid_heightfield_converter"
 version = "1.2.0"
 name = "Grid Heightfield Converter"
 tagline = "Exact grid heightfields with procedural and manual terrain editing"
-maintainer = "OpenAI"
+maintainer = "Conrad Compagna"
 type = "add-on"
 
 blender_version_min = "4.2.0"

@@ -3,3 +3,6 @@
 *.gdshader text eol=lf
 *.md text eol=lf
 *.yml text eol=lf
+*.gdshaderinc text eol=lf
+*.uid text eol=lf
+*.json text eol=lf

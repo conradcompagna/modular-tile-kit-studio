@@ -1,0 +1,498 @@
+{
+	"aesthetics": {
+		"backface_culling_enabled": false,
+		"contact_grime": 0.65,
+		"contact_grime_darkening": 0.28,
+		"contact_grime_fade": 1.0,
+		"contact_grime_noise": 0.45,
+		"contrast": 1.0,
+		"exposure": 1.0,
+		"height_metres_per_source_pixel": 0.0001,
+		"highlight_compression": 0.0,
+		"interaction_effects_enabled": true,
+		"one_sided_shadows_enabled": false,
+		"parallax_master": 1.0,
+		"saturation": 1.0,
+		"shadow_lift": 0.0,
+		"stochastic_blend_sharpness": 1.5,
+		"stochastic_scale": 1.0,
+		"stochastic_seed": 0.0
+	},
+	"biome": "stone",
+	"enemy_packs": [
+		{
+			"id": "guards",
+			"note": "Courtyard sentries"
+		}
+	],
+	"gameplay_markers": [
+		{
+			"id": "sentry",
+			"monster": "guard",
+			"note": "Watch the gate",
+			"origin": [
+				0,
+				0,
+				0
+			],
+			"pack": "guards",
+			"type": "enemy"
+		}
+	],
+	"imported_assets": [
+		"FIXTURE_STONE"
+	],
+	"lighting": {
+		"ambient_color": [
+			0.30000001192092896,
+			0.3499999940395355,
+			0.41999998688697815
+		],
+		"ambient_energy": 0.45,
+		"background_color": [
+			0.09000000357627869,
+			0.10000000149011612,
+			0.11999999731779099
+		],
+		"fog_aerial_perspective": 0.0,
+		"fog_color": [
+			0.30000001192092896,
+			0.3400000035762787,
+			0.41999998688697815
+		],
+		"fog_density": 0.01,
+		"fog_depth_begin_m": 10.0,
+		"fog_depth_curve": 1.0,
+		"fog_depth_end_m": 100.0,
+		"fog_enabled": false,
+		"fog_height_density": 0.0,
+		"fog_height_m": 0.0,
+		"fog_sun_scatter": 0.0,
+		"glow_bloom": 0.0,
+		"glow_enabled": false,
+		"glow_intensity": 0.8,
+		"ground_bottom_color": [
+			0.07999999821186066,
+			0.07000000029802322,
+			0.05999999865889549
+		],
+		"ground_horizon_color": [
+			0.3799999952316284,
+			0.3400000035762787,
+			0.30000001192092896
+		],
+		"lights": [],
+		"material_ao_light_affect": 0.25,
+		"reflection_probe_box_projection": true,
+		"reflection_probe_enabled": false,
+		"reflection_probe_intensity": 1.0,
+		"reflection_probe_padding_m": 2.0,
+		"reflection_probe_shadows": true,
+		"sdfgi_enabled": false,
+		"sdfgi_energy": 1.0,
+		"sdfgi_read_sky_light": true,
+		"sdfgi_use_occlusion": true,
+		"show_sky_background": false,
+		"sky_ambient_contribution": 1.0,
+		"sky_enabled": false,
+		"sky_energy_multiplier": 1.0,
+		"sky_horizon_color": [
+			0.699999988079071,
+			0.7400000095367432,
+			0.800000011920929
+		],
+		"sky_mode": 0,
+		"sky_panorama_path": "",
+		"sky_rotation_degrees": 0.0,
+		"sky_top_color": [
+			0.18000000715255737,
+			0.3199999928474426,
+			0.550000011920929
+		],
+		"ssao_detail": 0.5,
+		"ssao_enabled": false,
+		"ssao_intensity": 2.0,
+		"ssao_power": 1.5,
+		"ssao_radius": 1.0,
+		"ssil_enabled": false,
+		"ssil_intensity": 1.0,
+		"ssil_radius": 5.0,
+		"ssr_depth_tolerance": 0.2,
+		"ssr_enabled": false,
+		"ssr_fade_in": 0.15,
+		"ssr_fade_out": 2.0,
+		"ssr_max_steps": 64.0,
+		"sun_angular_distance_degrees": 0.5,
+		"sun_azimuth_degrees": -38.0,
+		"sun_color": [
+			1.0,
+			0.878000020980835,
+			0.6899999976158142
+		],
+		"sun_elevation_degrees": 46.0,
+		"sun_enabled": true,
+		"sun_energy": 1.6,
+		"sun_shadow_bias": 0.03,
+		"sun_shadow_enabled": true,
+		"sun_shadow_opacity": 0.6,
+		"sun_specular": 0.5,
+		"tonemap_mode": 2,
+		"tonemap_white": 1.0,
+		"volumetric_fog_albedo": [
+			1.0,
+			1.0,
+			1.0
+		],
+		"volumetric_fog_density": 0.05,
+		"volumetric_fog_detail_spread": 2.0,
+		"volumetric_fog_emission": [
+			0.0,
+			0.0,
+			0.0
+		],
+		"volumetric_fog_emission_energy": 1.0,
+		"volumetric_fog_enabled": false,
+		"volumetric_fog_gi_inject": 1.0,
+		"volumetric_fog_length_m": 64.0,
+		"volumetric_fog_sky_affect": 1.0
+	},
+	"material_blend": {
+		"auto_texture_thin_side_slivers": false,
+		"blend_mode": 0,
+		"debug_view": 0,
+		"enabled": false,
+		"layers": [
+			{
+				"application_mode": 0,
+				"asset_id": "",
+				"enabled": false,
+				"height_blend_percent": 0.0,
+				"masks": [
+					{
+						"channel": 0,
+						"combine": 0,
+						"invert": false,
+						"noise_angle_degrees": 0.0,
+						"noise_scale_m": 2.0,
+						"noise_seed": 0,
+						"paint_channel": 0,
+						"range_high_percent": 100.0,
+						"range_low_percent": 0.0,
+						"softness_percent": 10.0,
+						"source": 0,
+						"strength_percent": 100.0
+					}
+				],
+				"opacity_percent": 100.0,
+				"texture_scale_percent": 100.0
+			},
+			{
+				"application_mode": 0,
+				"asset_id": "",
+				"enabled": false,
+				"height_blend_percent": 0.0,
+				"masks": [
+					{
+						"channel": 0,
+						"combine": 0,
+						"invert": false,
+						"noise_angle_degrees": 0.0,
+						"noise_scale_m": 2.0,
+						"noise_seed": 0,
+						"paint_channel": 1,
+						"range_high_percent": 100.0,
+						"range_low_percent": 0.0,
+						"softness_percent": 10.0,
+						"source": 0,
+						"strength_percent": 100.0
+					}
+				],
+				"opacity_percent": 100.0,
+				"texture_scale_percent": 100.0
+			},
+			{
+				"application_mode": 0,
+				"asset_id": "",
+				"enabled": false,
+				"height_blend_percent": 0.0,
+				"masks": [
+					{
+						"channel": 0,
+						"combine": 0,
+						"invert": false,
+						"noise_angle_degrees": 0.0,
+						"noise_scale_m": 2.0,
+						"noise_seed": 0,
+						"paint_channel": 2,
+						"range_high_percent": 100.0,
+						"range_low_percent": 0.0,
+						"softness_percent": 10.0,
+						"source": 0,
+						"strength_percent": 100.0
+					}
+				],
+				"opacity_percent": 100.0,
+				"texture_scale_percent": 100.0
+			},
+			{
+				"application_mode": 0,
+				"asset_id": "",
+				"enabled": false,
+				"height_blend_percent": 0.0,
+				"masks": [
+					{
+						"channel": 0,
+						"combine": 0,
+						"invert": false,
+						"noise_angle_degrees": 0.0,
+						"noise_scale_m": 2.0,
+						"noise_seed": 0,
+						"paint_channel": 3,
+						"range_high_percent": 100.0,
+						"range_low_percent": 0.0,
+						"softness_percent": 10.0,
+						"source": 0,
+						"strength_percent": 100.0
+					}
+				],
+				"opacity_percent": 100.0,
+				"texture_scale_percent": 100.0
+			}
+		],
+		"maximum_surface_edge_px": 512,
+		"paint_texels_per_metre": 64,
+		"pressure_controls_opacity": true,
+		"pressure_controls_size": true,
+		"splatmap_channel_strengths": [
+			1.0,
+			1.0,
+			1.0,
+			1.0
+		],
+		"splatmap_channel_strengths_enabled": false,
+		"splatmap_empty_region_channel": 0,
+		"splatmap_fill_empty_regions": false,
+		"splatmap_mode_enabled": false,
+		"splatmap_overlay_enabled": false,
+		"splatmap_palette_indices": [
+			-1,
+			-1,
+			-1,
+			-1
+		],
+		"splatmap_projection": 0,
+		"splatmap_source_path": ""
+	},
+	"monster_visuals": [],
+	"movement_grid": {
+		"collision_min_triangle_share_percent": 0.0,
+		"ground_effects": [
+			{
+				"cell": [
+					0,
+					0
+				],
+				"label": "mud"
+			}
+		],
+		"unwalkable_cells": [
+			[
+				-1,
+				-1
+			]
+		]
+	},
+	"name": "Public courtyard fixture",
+	"particle_effects": [],
+	"props": [],
+	"surface_material_paint": {
+		"material_slots": [
+			{
+				"palette_indices": [
+					-1,
+					-1,
+					-1,
+					-1
+				],
+				"uid": "t:-1,-1"
+			},
+			{
+				"palette_indices": [
+					-1,
+					-1,
+					-1,
+					-1
+				],
+				"uid": "t:0,-1"
+			},
+			{
+				"palette_indices": [
+					-1,
+					-1,
+					-1,
+					-1
+				],
+				"uid": "t:-1,0"
+			},
+			{
+				"palette_indices": [
+					-1,
+					-1,
+					-1,
+					-1
+				],
+				"uid": "t:0,0"
+			},
+			{
+				"palette_indices": [
+					-1,
+					-1,
+					-1,
+					-1
+				],
+				"uid": "k:-1,-1,0,0"
+			},
+			{
+				"palette_indices": [
+					-1,
+					-1,
+					-1,
+					-1
+				],
+				"uid": "k:-1,-1,3,0"
+			},
+			{
+				"palette_indices": [
+					-1,
+					-1,
+					-1,
+					-1
+				],
+				"uid": "k:0,-1,0,0"
+			},
+			{
+				"palette_indices": [
+					-1,
+					-1,
+					-1,
+					-1
+				],
+				"uid": "k:0,-1,1,0"
+			},
+			{
+				"palette_indices": [
+					-1,
+					-1,
+					-1,
+					-1
+				],
+				"uid": "k:-1,0,2,0"
+			},
+			{
+				"palette_indices": [
+					-1,
+					-1,
+					-1,
+					-1
+				],
+				"uid": "k:-1,0,3,0"
+			},
+			{
+				"palette_indices": [
+					-1,
+					-1,
+					-1,
+					-1
+				],
+				"uid": "k:0,0,1,0"
+			},
+			{
+				"palette_indices": [
+					-1,
+					-1,
+					-1,
+					-1
+				],
+				"uid": "k:0,0,2,0"
+			}
+		]
+	},
+	"surfaces": [
+		{
+			"asset": "FIXTURE_STONE",
+			"face": "+Y",
+			"origin": [
+				0,
+				0,
+				0
+			],
+			"presentation": "terrain_paint",
+			"rotation": 1,
+			"terrain_face_uids": [
+				"t:0,0"
+			],
+			"uid": "fixture-paint"
+		},
+		{
+			"asset": "FIXTURE_STONE",
+			"face": "+Y",
+			"match_underlying_palette": false,
+			"origin": [
+				0,
+				0,
+				0
+			],
+			"presentation": "shader_decal",
+			"rotation": 0,
+			"terrain_face_uids": [
+				"t:0,0"
+			],
+			"uid": "fixture-decal"
+		}
+	],
+	"terrain": {
+		"cell_mask": [
+			1,
+			1,
+			1,
+			1
+		],
+		"origin_cell": [
+			-1,
+			-1
+		],
+		"side_faces": {
+
+		},
+		"size_cells": [
+			2,
+			2
+		],
+		"skirt_depth_m": 1.0,
+		"top_diagonals": [
+			1,
+			0,
+			0,
+			1
+		],
+		"top_heights": [
+			0.0,
+			0.0,
+			0.0,
+			0.25,
+			0.0,
+			0.0,
+			0.25,
+			0.0,
+			0.0,
+			0.25,
+			0.0,
+			0.0,
+			0.25,
+			0.0,
+			0.0,
+			0.0
+		]
+	},
+	"version": 13
+}

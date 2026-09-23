@@ -4,9 +4,13 @@
 
 I built the studio to make detailed environments authorable through a constrained spatial vocabulary. Its grid, asset definitions, and board documents make the relationship between authored geometry and structured level data explicit.
 
-[Setup](docs/SETUP.md) · [Tests](tests/README.md) · [Portfolio](https://github.com/conradcompagna)
+[Setup](docs/SETUP.md) · [Architecture](docs/ARCHITECTURE.md) · [Tests](tests/README.md) · [Portfolio](https://github.com/conradcompagna)
 
 [![Checks](https://github.com/conradcompagna/modular-tile-kit-studio/actions/workflows/checks.yml/badge.svg)](https://github.com/conradcompagna/modular-tile-kit-studio/actions/workflows/checks.yml)
+
+![Eighteen surface shader variants rendered with the public fixture](docs/images/shader-variants.png)
+
+Public renderer fixture: opaque, cutout and blended surfaces with texture variation and different layer counts; see [validation limits](tests/README.md).
 
 ## Engineering highlights
 
@@ -35,4 +39,10 @@ Import `project.godot` in **Godot 4.6.2**, allow the project to import, and sele
 
 The editor data and rendering layers are separate from the UI. This source release includes the editor, shaders, tests, and asset-preparation infrastructure, ready to use with your own art and board documents.
 
+The public Godot classes delegate to named feature modules while retaining resource identities and undo callbacks; the main shader uses ordered includes. All maintained first-party files are limited to 2,000 lines by CI. The [architecture guide](docs/ARCHITECTURE.md) explains where state lives and how to follow each feature.
+
 See [test coverage](tests/README.md), [publication contents](docs/PUBLICATION.md), and [third-party notices](THIRD_PARTY_NOTICES.md).
+
+## Development and validation
+
+[Development commands](docs/DEVELOPMENT.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md)

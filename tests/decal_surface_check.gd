@@ -289,6 +289,12 @@ func _check_prepared_load_indexes_shader_decals() -> void:
 	decal.presentation = SurfacePlacement.Presentation.SHADER_DECAL
 	decal.terrain_face_uids = PackedStringArray(["t:0,0"])
 	staged.add_surface(decal)
+	# Version 13 persists an explicit palette mapping for every terrain face,
+	# including unpainted skirt faces; this fixture must obey the save contract.
+	var material_slots: Array = []
+	for uid: String in staged.terrain.face_uid_set():
+		material_slots.append({"uid": uid, "palette_indices": [-1, -1, -1, -1]})
+	staged.surface_material_paint = {"material_slots": material_slots}
 
 	# The receiving document starts with no decal index at all, which is exactly the
 	# state a previously loaded board leaves behind before it adopts the next one.
