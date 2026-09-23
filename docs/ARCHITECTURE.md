@@ -1,9 +1,8 @@
 # Source ownership and feature boundaries
 
-The existing public Godot classes retain their `class_name`, script UID, exported
-properties, signals, and method signatures. They own canonical resources or scene
-nodes; their feature modules receive a typed host and implement one area of
-behavior. A module never copies a board, creates a second occupancy index, or
+Public Godot classes define `class_name`, script UIDs, exported properties,
+signals, and method signatures. They own canonical resources or scene nodes;
+feature modules receive a typed host and implement one area of behavior. A module never copies a board, creates a second occupancy index, or
 silently takes ownership of a viewport node.
 
 | Public class | Implementation directory | Responsibilities |
@@ -25,8 +24,8 @@ subsystem into the facade just because it can access the host.
 ## Authoritative state
 
 `BoardDocument` owns terrain, placements, gameplay records and look profiles.
-Its private spatial maps are rebuilt derivatives. Board version 13 and the
-portable JSON format are unchanged. File writes still stage, validate, preserve
+Its private spatial maps are rebuilt derivatives. Board version 13 uses a
+portable JSON format. File writes stage, validate, preserve
 the prior file as a backup, and then rename into place. Paint sidecars retain
 checksums and explicit per-face palette mappings.
 
@@ -45,18 +44,16 @@ and the vertex/fragment stages. Include order follows shader dependencies.
 `rendering/shader_source.gd` recursively expands includes for the material factory.
 Both variant rewriting and source hashing consume that expanded text, so changing
 an included function refreshes live editor materials too. Cyclic or missing
-includes fail visibly. The initial extraction reconstructs the original shader
-exactly; its SHA-256 contract is recorded in `tests/shader_compile_check.gd`.
-Intentional later shader changes must update that contract after review and a
+includes fail visibly. `tests/shader_compile_check.gd` records a SHA-256 contract
+for the expanded shader. Shader changes update that contract after review and a
 renderer check.
 
-## Refactor evidence
+## Contract validation
 
-The extraction preserved the bodies of 866 GDScript methods after accounting for
-explicit host/class qualification; the remaining method intentionally changed to
-read expanded shader source. A golden version-13 board was generated with commit
-`824fa54` before the Godot extraction. The current save/reload test checks that
-serialization, face indexes, movement state, gameplay indexes and backups agree.
+A deterministic version-13 board fixture exercises serialization, face indexes,
+movement state, gameplay indexes, and backups through save/reload tests. Shader
+checks validate include expansion and material variants; editor checks exercise
+resource ownership and undo/redo behavior.
 
 The [test guide](../tests/README.md) distinguishes core, native-editor, and actual
 renderer checks. The [Blender integration](../integrations/blender/README.md) has
