@@ -21,4 +21,4 @@ The companion Blender add-on lives in `integrations/blender/` and has its own `b
 
 ## Validation
 
-See [tests](../tests/README.md) for the headless CI commands and the separate rendering checks. CI imports the editor, parses the focused scripts, and runs the terrain, grid, texture-adjustment, and prop-contact regressions. This does not replace an interactive review of the Forward+ viewport and imported art.
+See [tests](../tests/README.md) for the headless CI commands and the separate rendering checks. CI imports the editor, parses the focused scripts, and runs the terrain, grid, texture-adjustment, and prop-contact regressions. Interactive checks cover the Forward+ viewport and imported art.

@@ -12,4 +12,4 @@ godot --headless --path . --script res://tests/prop_contact_regression_check.gd
 
 CI runs these four suites: terrain topology/heightfields, proportional grid sizing, image adjustments, and prop/terrain contact including inspector behavior. A failed assertion produces a nonzero exit status. CI also parses every retained test script with `--check-only`.
 
-Other focused scripts cover import transforms, viewport behavior, material painting, surface seams, and rendering. They remain separate entrypoints because their renderer and fixture requirements differ. Read the selected script before executing it; a parser check is not a completed rendering test.
+Other focused scripts cover import transforms, viewport behavior, material painting, surface seams, and rendering. They remain separate entrypoints because their renderer and fixture requirements differ. Each script identifies the fixtures and rendering setup needed to exercise it beyond the CI parser check.
