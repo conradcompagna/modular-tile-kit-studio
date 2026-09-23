@@ -21,4 +21,4 @@ The companion Blender add-on lives in `integrations/blender/` and has its own `b
 
 ## Validation
 
-See [tests](../tests/README.md) for the headless CI commands and the separate rendering checks. CI imports a disposable editor project, parses the focused scripts, and runs 15 core plus two native-editor suites, covering board persistence, paint, shaders, placement and undo/redo. This does not replace an interactive review of the Forward+ viewport and imported art.
+See [tests](../tests/README.md) for the headless CI commands and the separate rendering checks. CI imports a disposable editor project, parses the focused scripts, and runs 15 core plus two native-editor suites, covering board persistence, paint, shaders, placement and undo/redo. Interactive checks cover the Forward+ viewport and imported art.

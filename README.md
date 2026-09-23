@@ -37,7 +37,7 @@ Import `project.godot` in **Godot 4.6.2**, allow the project to import, and sele
 | Checks and source utilities | [tests/](tests/), [tools/](tools/) |
 | Companion Blender add-on | [integrations/blender/](integrations/blender/) |
 
-The editor data and rendering layers are separate from the UI. This repository includes the editor, shaders, tests, and preparation infrastructure. The unfinished game, authored game boards, large art libraries, and generated caches remain outside it.
+The editor data and rendering layers are separate from the UI. This source release includes the editor, shaders, tests, and asset-preparation infrastructure, ready to use with your own art and board documents.
 
 The public Godot classes delegate to named feature modules while retaining resource identities and undo callbacks; the main shader uses ordered includes. All maintained first-party files are limited to 2,000 lines by CI. The [architecture guide](docs/ARCHITECTURE.md) explains where state lives and how to follow each feature.
 

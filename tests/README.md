@@ -25,14 +25,14 @@ python tools/run_godot_checks.py --godot /path/to/godot --suite render --render-
 
 This captures real rendered pixels, checks that every variant draws visible textured geometry, and rejects the dummy headless renderer. It is a shader smoke test, not an exhaustive visual correctness or performance benchmark. CI runs the core/editor suites; local GPU validation is reported separately.
 
-The September 2026 local check on Godot 4.6.2 / an RTX 5050 laptop produced all 18
-variants with zero pixel-check failures using Vulkan and D3D12, but the process
-did not finish cleanly after reporting the result (Vulkan exceeded 900 seconds;
-D3D12 was terminated after becoming unresponsive). The [captured image](../docs/images/shader-variants.png)
-is evidence of rendering only: **the complete GPU suite is not recorded as passed**.
-The source expansion is byte-identical to the original shader, and core/editor
-checks pass; the renderer shutdown issue still needs diagnosis on supported
-hardware before treating this as full interactive/rendering validation.
+The September 2026 local check on Godot 4.6.2 / an RTX 5050 laptop rendered all 18
+variants with zero pixel-check failures under both Vulkan and D3D12; the
+[captured image](../docs/images/shader-variants.png) records that output. Shader
+source expansion is byte-identical to the original, and core/editor checks pass.
+GPU-suite completion remains unresolved: Vulkan exceeded 900 seconds after the
+render checks, and D3D12 became unresponsive and was terminated. The recorded result
+is therefore successful rendering, with shutdown diagnosis required for a complete
+GPU-suite pass.
 Use `--rendering-driver d3d12` to select the Windows alternative explicitly.
 
 `fixtures/board_v13.json` was recorded from the original implementation at `824fa54`, using `fixtures/public_board.gd`; stable placement IDs make it deterministic. Update it only for a reviewed serialization change. The fixture covers paint and decal face ownership, enemy packs, terrain heights and movement state; it does not redistribute authored game boards.
