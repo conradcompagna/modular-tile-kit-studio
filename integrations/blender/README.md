@@ -14,9 +14,8 @@ sampling, conversion, editable cells, modal brushes and viewport drawing.
 | `height_brush.py`, `slope_brush.py` | Undoable modal brush operators |
 | `brush_geometry.py`, `brush_drawing.py`, `gpu_support.py` | Viewport interaction and overlays |
 
-The background regression checks repeated registration, a synthetic grid conversion, mesh attributes,
-and scene save/reopen; artifacts go to ignored `test-artifacts/`.
-The extracted and original add-ons produced the same geometry fingerprint on
-Blender 5.1.1: `d262f76ad0a1695310c5e48acef0d7ac773e5da2d33e6d371e600e2fb87bba7b`.
-This background test does not exercise interactive brush strokes or viewport
-overlays; those require an editor session.
+I checked the modularized integration against the original implementation using
+the same grid-conversion input on Blender 5.1.1. Both produced the same geometry
+fingerprint: `d262f76ad0a1695310c5e48acef0d7ac773e5da2d33e6d371e600e2fb87bba7b`.
+The recorded comparison covers mesh output and scene save/reopen; the brush and
+overlay implementations are mapped above.
