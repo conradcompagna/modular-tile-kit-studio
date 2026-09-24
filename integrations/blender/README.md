@@ -1,9 +1,8 @@
 # Grid Heightfield Tools
 
-The extension entrypoint only exposes registration and version metadata.
-Install the whole directory as an extension package, including
-`blender_manifest.toml` and every Python module; installing `__init__.py` alone
-is not supported.
+The Blender extension supports grid-heightfield conversion and editing. Its
+entrypoint owns registration and version metadata; focused modules implement
+sampling, conversion, editable cells, modal brushes and viewport drawing.
 
 | Module | Responsibility |
 | --- | --- |
@@ -15,13 +14,7 @@ is not supported.
 | `height_brush.py`, `slope_brush.py` | Undoable modal brush operators |
 | `brush_geometry.py`, `brush_drawing.py`, `gpu_support.py` | Viewport interaction and overlays |
 
-From the repository root, run the disposable background fixture:
-
-```sh
-blender --background --factory-startup --python-exit-code 1 --python tests/blender_addon_smoke.py
-```
-
-It checks repeated registration, a synthetic grid conversion, mesh attributes,
+The background regression checks repeated registration, a synthetic grid conversion, mesh attributes,
 and scene save/reopen; artifacts go to ignored `test-artifacts/`.
 The extracted and original add-ons produced the same geometry fingerprint on
 Blender 5.1.1: `d262f76ad0a1695310c5e48acef0d7ac773e5da2d33e6d371e600e2fb87bba7b`.

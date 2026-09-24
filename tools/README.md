@@ -1,7 +1,9 @@
-# Editor utilities
+# Asset-preparation utilities
 
-- `make_demo_assets.gd` generates a small procedural image kit into ignored `tile_library/` storage.
-- `rebuild_library.gd` rebuilds library metadata for locally supplied assets.
-- `migrations/` contains explicit library-format migrations for existing local libraries.
+The utilities record asset-library preparation and maintenance:
 
-Run the selected script with `godot --headless --path . --script res://tools/<script>.gd`. Migration scripts write library resources; inspect their input paths and use a copy of your local library. No project-specific art-generation batches or authored game assets are distributed.
+- `rebuild_library.gd` rebuilds asset metadata from local library contents.
+- `migrations/` contains explicit library-format migrations.
+- `make_demo_assets.gd` generates procedural tiles used in development fixtures.
+
+The repository-checking and Godot test runners support source and regression checks.

@@ -1,4 +1,21 @@
-# Source ownership and feature boundaries
+# Building a modular environment editor
+
+The studio connects geometric assets, spatial rules, persistent board data and a
+live Godot editor viewport. The construction work is visible in the boundaries
+between these systems and the contracts that keep them synchronized.
+
+## Construction stages
+
+| Stage | Engineering work | Implementation |
+|---|---|---|
+| Asset preparation | Image/GLB ingestion, canonical transforms, proportional sizing and geometric processing | [Importers](../addons/modular_tile_studio/importers/), [Blender integration](../integrations/blender/README.md). |
+| Spatial authoring | Grid sizing, occupancy, placement candidates, terrain contact and validation | [Board model](../addons/modular_tile_studio/data/board/), [placement features](../addons/modular_tile_studio/viewport/placement/). |
+| Terrain and surfaces | Heightfield generation, material layers, sparse paint, decals and derived maps | [Generation](../addons/modular_tile_studio/generation/), [rendering](../addons/modular_tile_studio/rendering/). |
+| Editor interaction | Main-screen plugin lifecycle, panels, selection, brushes and undo/redo | [Plugin](../addons/modular_tile_studio/plugin.gd), [UI](../addons/modular_tile_studio/ui/), [viewport](../addons/modular_tile_studio/viewport/). |
+| Persistence | Versioned board JSON, validation, atomic writes and paint sidecars | [Board features](../addons/modular_tile_studio/data/board/), [paint features](../addons/modular_tile_studio/rendering/paint/). |
+| Image analysis | Optional workflows connecting generated/processed imagery to asset preparation | [Analysis workflows](../addons/modular_tile_studio/analysis/). |
+
+## Runtime architecture
 
 Public Godot classes define `class_name`, script UIDs, exported properties,
 signals, and method signatures. They own canonical resources or scene nodes;
@@ -18,8 +35,6 @@ All paths above are below `addons/modular_tile_studio/`. Search for a method in 
 public class to find the feature that implements it. Comments describing the
 algorithm live beside that implementation. Small delegation methods preserve
 external callers, Godot signal connections, and string-addressed undo callbacks.
-New code should use the narrowest existing feature boundary; do not put another
-subsystem into the facade just because it can access the host.
 
 ## Authoritative state
 
@@ -45,16 +60,4 @@ and the vertex/fragment stages. Include order follows shader dependencies.
 Both variant rewriting and source hashing consume that expanded text, so changing
 an included function refreshes live editor materials too. Cyclic or missing
 includes fail visibly. `tests/shader_compile_check.gd` records a SHA-256 contract
-for the expanded shader. Shader changes update that contract after review and a
-renderer check.
-
-## Contract validation
-
-A deterministic version-13 board fixture exercises serialization, face indexes,
-movement state, gameplay indexes, and backups through save/reload tests. Shader
-checks validate include expansion and material variants; editor checks exercise
-resource ownership and undo/redo behavior.
-
-The [test guide](../tests/README.md) distinguishes core, native-editor, and actual
-renderer checks. The [Blender integration](../integrations/blender/README.md) has
-its own module map and registration/conversion test.
+for the expanded shader. The contract records the expanded shader source used by the material factory.

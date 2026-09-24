@@ -4,24 +4,35 @@
 
 I built the studio to make detailed environments authorable through a constrained spatial vocabulary. Its grid, asset definitions, and board documents make the relationship between authored geometry and structured level data explicit.
 
-[Setup](docs/SETUP.md) · [Architecture](docs/ARCHITECTURE.md) · [Tests](tests/README.md) · [Portfolio](https://github.com/conradcompagna)
+The work brings together asset import and geometric normalization, spatial indexes
+and placement rules, terrain generation, GPU materials, paint and decals, and
+editor interaction with undo/redo. I designed the board data model and rendering
+system together so that visual authoring produces structured, persistent level data.
 
-[![Checks](https://github.com/conradcompagna/modular-tile-kit-studio/actions/workflows/checks.yml/badge.svg)](https://github.com/conradcompagna/modular-tile-kit-studio/actions/workflows/checks.yml)
+The development record follows the editor source, board schema, importers, shader
+system and companion Blender tools that make up the studio.
 
-![Eighteen surface shader variants rendered with the public fixture](docs/images/shader-variants.png)
+## From assets to an authored environment
 
-Public renderer fixture: opaque, cutout and blended surfaces with texture variation and different layer counts; see [validation limits](tests/README.md).
+```mermaid
+flowchart TB
+    Assets["Images and GLB assets"] --> Import["Normalize geometry<br/>and build asset definitions"]
+    Import --> Tools["Placement, terrain<br/>and material tools"]
+    Tools --> Board["Board document<br/>Spatial indexes and validation"]
+    Board --> Save["Versioned JSON<br/>and paint sidecars"]
+    Board --> View["Incremental viewport updates"]
+    Materials["Shader layers, paint,<br/>decals and lighting"] --> View
+    View --> Editor["Interactive environment editor"]
+    Tools --> Undo["Undo / redo transactions"]
+    Undo --> Board
+```
 
 ## Engineering highlights
 
 - **Native editor tooling:** a Godot main-screen plugin with placement tools, inspectors, terrain sculpting, lighting/material panels, and undo/redo.
 - **Graphics infrastructure:** heightfield mesh construction, GPU shaders, painted material layers, surface blending, decals, and derived-map processing.
 - **Geometry-to-spatial-data pipeline:** GLB import and canonical transforms, proportional sizing, mesh processing, voxel occupancy, and placement validation.
-- **Structured authoring state:** canonical board/resources, JSON serialization, editor automation, background processing, optional ComfyUI integration, and focused regression tests.
-
-## Open the editor
-
-Import `project.godot` in **Godot 4.6.2**, allow the project to import, and select the **Tile Studio** main-screen tab. Start with your own assets or generate the small procedural demo tiles described in [setup](docs/SETUP.md).
+- **Structured authoring state:** canonical board/resources, JSON serialization, editor automation, background processing, optional ComfyUI integration.
 
 ## Explore the code
 
@@ -34,15 +45,17 @@ Import `project.godot` in **Godot 4.6.2**, allow the project to import, and sele
 | Image and GLB ingestion | [importers/](addons/modular_tile_studio/importers/) |
 | Panels and interaction | [ui/](addons/modular_tile_studio/ui/), [viewport/](addons/modular_tile_studio/viewport/) |
 | Image analysis and workflows | [analysis/](addons/modular_tile_studio/analysis/) |
-| Checks and source utilities | [tests/](tests/), [tools/](tools/) |
+| Asset-preparation utilities | [tools/](tools/) |
 | Companion Blender add-on | [integrations/blender/](integrations/blender/) |
 
-The editor data and rendering layers are separate from the UI. This source release includes the editor, shaders, tests, and asset-preparation infrastructure, ready to use with your own art and board documents.
+## Scope and construction
 
-The public Godot classes delegate to named feature modules while retaining resource identities and undo callbacks; the main shader uses ordered includes. All maintained first-party files are limited to 2,000 lines by CI. The [architecture guide](docs/ARCHITECTURE.md) explains where state lives and how to follow each feature.
+The studio covers modular environment authoring: asset preparation, board state,
+terrain, surface materials, placement and viewport interaction. A companion Blender
+extension supports grid-heightfield preparation and editing.
 
-See [test coverage](tests/README.md), [publication contents](docs/PUBLICATION.md), and [third-party notices](THIRD_PARTY_NOTICES.md).
-
-## Development and validation
-
-[Development commands](docs/DEVELOPMENT.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md)
+The editor data and rendering layers are separate from the UI. Godot classes retain
+resource identities and undo callbacks while delegating behavior to named feature
+modules; the main shader uses ordered includes. The
+[construction and architecture guide](docs/BUILD_PROCESS.md) follows those decisions
+from spatial data and asset preparation to editor interaction and rendering.
