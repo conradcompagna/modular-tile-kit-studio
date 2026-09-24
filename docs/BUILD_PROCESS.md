@@ -1,8 +1,9 @@
 # Building a modular environment editor
 
-The studio connects geometric assets, spatial rules, persistent board data and a
-live Godot editor viewport. The construction work is visible in the boundaries
-between these systems and the contracts that keep them synchronized.
+I designed the studio around a shared board model connecting geometric assets,
+spatial rules, persistent level data and a live Godot editor viewport. I separated
+data ownership, editor interaction and rendering so each system could evolve
+while staying synchronized with the same authored state.
 
 ## Construction stages
 

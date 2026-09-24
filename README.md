@@ -9,8 +9,8 @@ and placement rules, terrain generation, GPU materials, paint and decals, and
 editor interaction with undo/redo. I designed the board data model and rendering
 system together so that visual authoring produces structured, persistent level data.
 
-The development record follows the editor source, board schema, importers, shader
-system and companion Blender tools that make up the studio.
+The editor source, board schema, importers, shader system and companion Blender
+tools below document the systems I built and how they fit together.
 
 ## From assets to an authored environment
 
